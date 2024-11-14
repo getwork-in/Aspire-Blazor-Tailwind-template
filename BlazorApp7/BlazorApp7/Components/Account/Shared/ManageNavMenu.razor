@@ -3,27 +3,51 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage" Match="NavLinkMatch.All">Profile</NavLink>
+<ul class="space-y-2">
+    <li>
+        <NavLink href="Account/Manage" Match="NavLinkMatch.All"
+                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
+                 activeClass="bg-blue-500 text-white">
+            Profile
+        </NavLink>
     </li>
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/Email">Email</NavLink>
+    <li>
+        <NavLink href="Account/Manage/Email"
+                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
+                 activeClass="bg-blue-500 text-white">
+            Email
+        </NavLink>
     </li>
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/ChangePassword">Password</NavLink>
+    <li>
+        <NavLink href="Account/Manage/ChangePassword"
+                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
+                 activeClass="bg-blue-500 text-white">
+            Password
+        </NavLink>
     </li>
     @if (hasExternalLogins)
     {
-        <li class="nav-item">
-            <NavLink class="nav-link" href="Account/Manage/ExternalLogins">External logins</NavLink>
+        <li>
+            <NavLink href="Account/Manage/ExternalLogins"
+                     class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
+                     activeClass="bg-blue-500 text-white">
+                External logins
+            </NavLink>
         </li>
     }
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/TwoFactorAuthentication">Two-factor authentication</NavLink>
+    <li>
+        <NavLink href="Account/Manage/TwoFactorAuthentication"
+                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
+                 activeClass="bg-blue-500 text-white">
+            Two-factor authentication
+        </NavLink>
     </li>
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/PersonalData">Personal data</NavLink>
+    <li>
+        <NavLink href="Account/Manage/PersonalData"
+                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
+                 activeClass="bg-blue-500 text-white">
+            Personal data
+        </NavLink>
     </li>
 </ul>
 

@@ -15,44 +15,56 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
+@layout BlazorApp7.Components.Layout.LandingLayout
+
 <PageTitle>Register</PageTitle>
 
-<h1>Register</h1>
-
-<div class="row">
-    <div class="col-lg-6">
+<div class="grid-cols-1 mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+    <div class="lg:col-span-2">
         <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+        <EditForm class="space-y-6" Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
-            <hr />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" id="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="Input.Email">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
+            <h2 class="text-xl font-semibold">Create a new account</h2>
+            <hr class="my-4 border-gray-300" />
+            <!-- Email Input -->
+            <div class="relative">
+                <label for="Input.Email" class="block text-sm font-medium text-gray-700">Email</label>
+                <InputText @bind-Value="Input.Email" id="Input.Email" autocomplete="username"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                            aria-required="true" placeholder="name@example.com" />
+                <ValidationMessage For="() => Input.Email" class="text-red-500 text-sm mt-1" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="Input.Password">Password</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
+            <!-- Password Input -->
+            <div class="relative">
+                <label for="Input.Password" class="block text-sm font-medium text-gray-700">Password</label>
+                <InputText type="password" @bind-Value="Input.Password" id="Input.Password" autocomplete="new-password"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                            aria-required="true" placeholder="password" />
+                <ValidationMessage For="() => Input.Password" class="text-red-500 text-sm mt-1" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" id="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="Input.ConfirmPassword">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+            <!-- Confirm Password Input -->
+            <div class="relative">
+                <label for="Input.ConfirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <InputText type="password" @bind-Value="Input.ConfirmPassword" id="Input.ConfirmPassword" autocomplete="new-password"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                            aria-required="true" placeholder="password" />
+                <ValidationMessage For="() => Input.ConfirmPassword" class="text-red-500 text-sm mt-1" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <Button Size="ButtonSize.Large">Register</Button>
         </EditForm>
     </div>
-    <div class="col-lg-4 col-lg-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
+
+    <!-- External Login Section -->
+    <div>
+        <section class="rounded-lg bg-gray-100 p-6 shadow">
+            <h3 class="mb-4 text-xl font-semibold">Use another service to register</h3>
+            <hr class="my-4 border-gray-300" />
             <ExternalLoginPicker />
         </section>
     </div>
 </div>
+
+
 
 @code {
     private IEnumerable<IdentityError>? identityErrors;

@@ -1,16 +1,21 @@
 ﻿@inherits LayoutComponentBase
 @layout BlazorApp7.Components.Layout.MainLayout
 
-<h1>Manage your account</h1>
+<h1 class="mb-6 text-2xl font-bold">Manage your account</h1>
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-lg-3">
+<div class="space-y-6">
+    <h2 class="text-xl font-semibold">Change your account settings</h2>
+    <hr class="border-gray-300" />
+
+    <!-- Layout Container -->
+    <div class="grid-cols-1 grid gap-6 lg:grid-cols-4">
+        <!-- Navigation Menu (Left Sidebar) -->
+        <div class="lg:col-span-1">
             <ManageNavMenu />
         </div>
-        <div class="col-lg-9">
+
+        <!-- Main Content (Right Section) -->
+        <div class="lg:col-span-3">
             @Body
         </div>
     </div>

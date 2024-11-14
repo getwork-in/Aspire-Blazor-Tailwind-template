@@ -1,0 +1,89 @@
+﻿@implements IDisposable
+
+@inject NavigationManager NavigationManager
+
+<div class="container flex h-14 max-w-screen-2xl items-center">
+    <div class="mr-4 flex items-center space-x-2 lg:mr-6">
+        <a class="font-bold lg:inline-block" href="">BlazorApp7</a>
+    </div>
+    <div class="flex-1 flex items-center justify-between space-x-2 md:justify-end">
+        <nav class="leading-6 flex items-center font-semibold text-slate-700 dark:text-slate-200">
+            <ul class="m-0 flex w-full flex-wrap items-center justify-end">
+                <li className="relative flex flex-wrap just-fu-start m-0">
+                    <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="" Match="NavLinkMatch.All">
+                        <span aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
+                <li className="relative flex flex-wrap just-fu-start m-0">
+                    <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="counter">
+                        <span aria-hidden="true"></span> Counter
+                    </NavLink>
+                </li>
+                <li className="relative flex flex-wrap just-fu-start m-0">
+                    <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="weather">
+                        <span aria-hidden="true"></span> Weather
+                    </NavLink>
+                </li>
+                <li className="relative flex flex-wrap just-fu-start m-0">
+                    <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="auth">
+                        <span aria-hidden="true"></span> Auth Required
+                    </NavLink>
+                </li>
+                <AuthorizeView>
+                    <Authorized>
+                        <li className="relative flex flex-wrap just-fu-start m-0">
+                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="Account/Manage">
+                                <span aria-hidden="true"></span> @context.User.Identity?.Name
+                            </NavLink>
+                        </li>
+
+                        <div class="just-fu-start relative m-0 flex flex-wrap">
+                            <form action="Account/Logout" method="post">
+                                <AntiforgeryToken />
+                                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                                <button type="submit" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400">
+                                    <span aria-hidden="true"></span> Logout
+                                </button>
+                            </form>
+                        </div>
+                    </Authorized>
+                    <NotAuthorized>
+                        <li className="relative flex flex-wrap just-fu-start m-0">
+                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="Account/Register">
+                                <span aria-hidden="true"></span> Register
+                            </NavLink>
+                        </li>
+
+                        <li className="relative flex flex-wrap just-fu-start m-0">
+                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="Account/Login">
+                                <span aria-hidden="true"></span> Login
+                            </NavLink>
+                        </li>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@code {
+    private string? currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}
+

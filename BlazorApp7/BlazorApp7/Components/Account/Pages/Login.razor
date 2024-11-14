@@ -1,0 +1,161 @@
+﻿@page "/Account/Login"
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using BlazorApp7.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Login> Logger
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+
+<PageTitle>Log in</PageTitle>
+
+<h1>Log in.</h1>
+<div class="grid-cols-1 mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+    <div class="lg:col-span-2">
+        <section>
+            <StatusMessage Message="@errorMessage" />
+            <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login" class="space-y-6">
+                <DataAnnotationsValidator />
+                <h2 class="max-w-lg">Use a local account to log in.</h2>
+                <hr class="my-4 border-gray-300" />
+                <ValidationSummary class="text-red-500" role="alert" />
+                <!-- Email Input -->
+                <div class="relative">
+                    <label for="Input.Email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <InputText @bind-Value="Input.Email" id="Input.Email" autocomplete="username"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                               aria-required="true" placeholder="name@example.com" />
+                    <ValidationMessage For="() => Input.Email" class="text-red-500 text-sm mt-1" />
+                </div>
+
+                @* <div class="form-floating mb-3">
+                    <InputText @bind-Value="Input.Email" id="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label for="Input.Email" class="form-label">Email</label>
+                    <ValidationMessage For="() => Input.Email" class="text-danger" />
+                </div> *@
+
+                <!-- Password Input -->
+                <div class="relative">
+                    <label for="Input.Password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <InputText type="password" @bind-Value="Input.Password" id="Input.Password" autocomplete="current-password"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                               aria-required="true" placeholder="password" />
+                    <ValidationMessage For="() => Input.Password" class="text-red-500 text-sm mt-1" />
+                </div>
+
+                @* <div class="form-floating mb-3">
+                    <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <label for="Input.Password" class="form-label">Password</label>
+                    <ValidationMessage For="() => Input.Password" class="text-danger" />
+                </div> *@
+                @* <div class="checkbox mb-3">
+                    <label class="form-label">
+                        <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input" />
+                        Remember me
+                    </label>
+                </div> *@
+
+                <!-- Remember Me Checkbox -->
+                <div class="flex items-center">
+                    <InputCheckbox @bind-Value="Input.RememberMe"
+                                   class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <label for="Input.RememberMe" class="ml-2 text-sm text-gray-700">Remember me</label>
+                </div>
+
+                <!-- Login Button -->
+                <div>
+                    <Button>Log in</Button>
+                </div>
+
+                <!-- Links Section -->
+                <div class="space-y-2 text-sm">
+                    <p>
+                        <a href="Account/ForgotPassword" class="text-blue-600 hover:underline">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))"
+                           class="text-blue-600 hover:underline">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a href="Account/ResendEmailConfirmation" class="text-blue-600 hover:underline">Resend email confirmation</a>
+                    </p>
+                </div>
+            </EditForm>
+        </section>
+    </div>
+
+    <!-- External Login Section -->
+    <div>
+        <section class="rounded-lg bg-gray-100 p-6 shadow">
+            <h3 class="mb-4 text-xl font-semibold">Use another service to log in</h3>
+            <hr class="my-4 border-gray-300" />
+            <ExternalLoginPicker />
+        </section>
+    </div>
+</div>
+
+@code {
+    private string? errorMessage;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        }
+    }
+
+    public async Task LoginUser()
+    {
+        // This doesn't count login failures towards account lockout
+        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            Logger.LogInformation("User logged in.");
+            RedirectManager.RedirectTo(ReturnUrl);
+        }
+        else if (result.RequiresTwoFactor)
+        {
+            RedirectManager.RedirectTo(
+                "Account/LoginWith2fa",
+                new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Input.RememberMe });
+        }
+        else if (result.IsLockedOut)
+        {
+            Logger.LogWarning("User account locked out.");
+            RedirectManager.RedirectTo("Account/Lockout");
+        }
+        else
+        {
+            errorMessage = "Error: Invalid login attempt.";
+        }
+    }
+
+    private sealed class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = "";
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = "";
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+}

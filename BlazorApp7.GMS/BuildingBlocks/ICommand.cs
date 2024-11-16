@@ -1,5 +1,11 @@
-﻿namespace BlazorApp7.GMS.BuildingBlocks;
+﻿using MediatR;
 
-public interface ICommand
+namespace BlazorApp7.GMS.BuildingBlocks;
+
+public interface ICommand : IRequest
+{
+}
+
+public interface ICommand<out TResult> : IRequest<TResult>
 {
 }

@@ -6,4 +6,3 @@ namespace BlazorApp7.Data;
 public class ApplicationUser : IdentityUser
 {
 }
-

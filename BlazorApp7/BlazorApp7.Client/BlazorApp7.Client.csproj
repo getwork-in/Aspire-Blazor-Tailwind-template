@@ -13,6 +13,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="9.0.0" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.10.4" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BlazorApp7.Components\BlazorApp7.Components.csproj" />
+  </ItemGroup>
 	
     <!--<Target Name="NpmRunBuild" BeforeTargets="BeforePublish">
 	    <Exec Command="npm ci" />

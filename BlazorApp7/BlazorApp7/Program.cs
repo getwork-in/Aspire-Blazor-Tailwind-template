@@ -1,8 +1,12 @@
+using BlazorApp7;
 using BlazorApp7.Components;
 using BlazorApp7.Components.Account;
 using BlazorApp7.Data;
+using BlazorApp7.GMS;
 using BlazorApp7.ServiceDefaults;
+
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,13 +35,19 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+builder.Services.AddDataProtection()
+	.PersistKeysToFileSystem(new DirectoryInfo("App_Data"));
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+	.AddRoles<IdentityRole>()
+	.AddRoleManager<RoleManager<IdentityRole>>()
 	.AddEntityFrameworkStores<ApplicationDbContext>()
 	.AddSignInManager()
 	.AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+builder.Services.AddGMS();
+builder.Services.AddScoped<ILocalStorage, LocalStorage>();
 
 var app = builder.Build();
 
@@ -70,4 +80,11 @@ app.MapRazorComponents<App>()
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
 
-app.Run();
+await app.ConfigureDbAsync();
+
+BlazorConfig.Set(new()
+{
+	IsDevelopment = app.Environment.IsDevelopment(),
+});
+
+await app.RunAsync();

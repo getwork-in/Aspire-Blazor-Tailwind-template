@@ -1,4 +1,4 @@
-﻿namespace BlazorApp7.GMS.Entities;
+﻿namespace BlazorApp7.GMS.Entities.SessionOwned;
 
 public class Staff
 {

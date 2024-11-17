@@ -1,0 +1,14 @@
+﻿@page "/dev"
+
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = "Developer")]
+@rendermode InteractiveAuto
+
+<PageTitle>Dev</PageTitle>
+
+<AuthorizeView>
+    <h1 class="text-4xl font-bold">Developers</h1>
+
+    Hello @context.User.Identity?.Name!, you are a developer!
+</AuthorizeView>

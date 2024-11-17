@@ -6,7 +6,7 @@ namespace BlazorApp7.GMS.Data;
 public class GMSContext : DbContext
 {
 	public DbSet<Session> GameSessions => Set<Session>();
-	public DbSet<UserGameSession> UserGameSessions => Set<UserGameSession>();
+	public DbSet<UserSession> UserGameSessions => Set<UserSession>();
 	//public DbSet<League> Leagues => Set<League>();
 	//public DbSet<Team> Teams => Set<Team>();
 	//public DbSet<Staff> Staff => Set<Staff>();
@@ -21,8 +21,6 @@ public class GMSContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		modelBuilder.Entity<UserGameSession>()
-			.HasKey(ugs => new { ugs.UserId, ugs.SessionId });
-
+		base.OnModelCreating(modelBuilder);
 	}
 }

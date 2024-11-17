@@ -1,9 +1,9 @@
 ﻿namespace BlazorApp7.GMS.Entities;
 
-public class UserGameSession
+public class UserSession
 {
 	public Guid Id { get; set; } = Guid.NewGuid();
-	public Guid UserId { get; set; }
-	public Guid SessionId { get; set; }
+	public required string UserId { get; set; }
+	public required Guid SessionId { get; set; }
 	public DateTime JoinedAt { get; set; } = DateTime.UtcNow;
 }

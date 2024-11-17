@@ -1,4 +1,6 @@
-﻿@implements IDisposable
+﻿@using BlazorApp7.Components.Tailwind
+
+@implements IDisposable
 
 @inject NavigationManager NavigationManager
 
@@ -19,16 +21,24 @@
                         <span aria-hidden="true"></span> Counter
                     </NavLink>
                 </li>
-                <li className="relative flex flex-wrap just-fu-start m-0">
-                    <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="weather">
-                        <span aria-hidden="true"></span> Weather
-                    </NavLink>
-                </li>
-                <li className="relative flex flex-wrap just-fu-start m-0">
-                    <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="auth">
-                        <span aria-hidden="true"></span> Auth Required
-                    </NavLink>
-                </li>
+                <AuthorizeView Roles="Admin">
+                     <Authorized>
+                        <li className="relative flex flex-wrap just-fu-start m-0">
+                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="admin">
+                                <span aria-hidden="true"></span> Admin
+                            </NavLink>
+                        </li>
+                    </Authorized>
+                </AuthorizeView>
+                <AuthorizeView Roles="Developer">
+                    <Authorized>
+                        <li className="relative flex flex-wrap just-fu-start m-0">
+                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="dev">
+                                <span aria-hidden="true"></span> Developers
+                            </NavLink>
+                        </li>
+                    </Authorized>
+                </AuthorizeView>
                 <AuthorizeView>
                     <Authorized>
                         <li className="relative flex flex-wrap just-fu-start m-0">
@@ -61,6 +71,12 @@
                         </li>
                     </NotAuthorized>
                 </AuthorizeView>
+
+                <li class="just-fu-start relative m-0 flex flex-wrap">
+                    
+                    @* <span>Dark Mode</span> *@
+                    <DarkModeToggleLite />
+                </li>          
             </ul>
         </nav>
     </div>

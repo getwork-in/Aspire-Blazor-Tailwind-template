@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BlazorApp7.Components\BlazorApp7.Components.csproj" />
     <ProjectReference Include="..\..\BlazorApp7.GMS\BlazorApp7.GMS.csproj" />
     <ProjectReference Include="..\..\BlazorApp7.ServiceDefaults\BlazorApp7.ServiceDefaults.csproj" />
     <ProjectReference Include="..\BlazorApp7.Client\BlazorApp7.Client.csproj" />
@@ -19,6 +20,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
 
 </Project>

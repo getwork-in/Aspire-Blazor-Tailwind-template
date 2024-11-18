@@ -12,56 +12,65 @@
 
 <PageTitle>Manage your external logins</PageTitle>
 
-<StatusMessage />
-@if (currentLogins?.Count > 0)
-{
-    <h3>Registered Logins</h3>
-    <table class="table">
-        <tbody>
-            @foreach (var login in currentLogins)
-            {
-                <tr>
-                    <td>@login.ProviderDisplayName</td>
-                    <td>
-                        @if (showRemoveButton)
-                        {
-                            <form @formname="@($"remove-login-{login.LoginProvider}")" @onsubmit="OnSubmitAsync" method="post">
-                                <AntiforgeryToken />
-                                <div>
-                                    <input type="hidden" name="@nameof(LoginProvider)" value="@login.LoginProvider" />
-                                    <input type="hidden" name="@nameof(ProviderKey)" value="@login.ProviderKey" />
-                                    <button type="submit" class="btn btn-primary" title="Remove this @login.ProviderDisplayName login from your account">Remove</button>
-                                </div>
-                            </form>
-                        }
-                        else
-                        {
-                            @: &nbsp;
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-@if (otherLogins?.Count > 0)
-{
-    <h4>Add another service to log in.</h4>
-    <hr />
-    <form class="form-horizontal" action="Account/Manage/LinkExternalLogin" method="post">
-        <AntiforgeryToken />
-        <div>
-            <p>
-                @foreach (var provider in otherLogins)
-                {
-                    <button type="submit" class="btn btn-primary" name="Provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
-                        @provider.DisplayName
-                    </button>
-                }
-            </p>
+<div class="max-w-xl">
+    <StatusMessage class="mb-3" />
+    @if (currentLogins?.Count > 0)
+    {
+        <Heading3>Registered Logins</Heading3>
+        <div class="prose prose-xl">
+            <table class="table">
+                <tbody>
+                    @foreach (var login in currentLogins)
+                    {
+                        <tr>
+                            <td id="login-provider-@login.LoginProvider"><Heading4>@login.ProviderDisplayName</Heading4></td>
+                            <td>
+                                @if (showRemoveButton)
+                                {
+                                    <form id="remove-login-@login.LoginProvider" @formname="@($"remove-login-{login.LoginProvider}")" @onsubmit="OnSubmitAsync" method="post">
+                                        <AntiforgeryToken />
+                                        <div>
+                                            <input type="hidden" name="@nameof(LoginProvider)" value="@login.LoginProvider" />
+                                            <input type="hidden" name="@nameof(ProviderKey)" value="@login.ProviderKey" />
+                                            <Button type="submit" title=@($"Remove this {login.ProviderDisplayName} login from your account")>Remove</Button>
+                                        </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    @: &nbsp;
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    </form>
-}
+    }
+    @if (otherLogins?.Count > 0)
+    {
+        <Heading4>Add another service to log in.</Heading4>
+        <form id="link-login-form" class="form-horizontal mt-4" action="Account/Manage/LinkExternalLogin" method="post">
+            <AntiforgeryToken />
+            <div id="socialLoginList">
+                <p>
+                    @foreach (var provider in otherLogins)
+                    {
+                        <button id="link-login-button-@provider.Name"
+                                type="submit"
+                                class="mb-2 mr-2"
+                                name="Provider"
+                                value="@provider.Name"
+                                title="Log in using your @provider.DisplayName account">
+                            @provider.DisplayName
+                        </button>
+                    }
+                </p>
+            </div>
+        </form>
+    }
+
+</div>
 
 @code {
     public const string LinkLoginCallbackAction = "LinkLoginCallback";

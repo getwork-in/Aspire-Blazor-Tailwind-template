@@ -3,6 +3,7 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
 @using BlazorApp7.Data
+@using static BlazorApp7.Components.Account.Pages.Login
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -11,37 +12,46 @@
 
 <PageTitle>Two-factor authentication</PageTitle>
 
-<h1>Two-factor authentication</h1>
-<hr />
-<StatusMessage Message="@message" />
-<p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
-<div class="row">
-    <div class="col-md-4">
-        <EditForm Model="Input" FormName="login-with-2fa" OnValidSubmit="OnValidSubmitAsync" method="post">
-            <input type="hidden" name="ReturnUrl" value="@ReturnUrl" />
-            <input type="hidden" name="RememberMe" value="@RememberMe" />
-            <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.TwoFactorCode" id="Input.TwoFactorCode" class="form-control" autocomplete="off" />
-                <label for="Input.TwoFactorCode" class="form-label">Authenticator code</label>
-                <ValidationMessage For="() => Input.TwoFactorCode" class="text-danger" />
-            </div>
-            <div class="checkbox mb-3">
-                <label for="remember-machine" class="form-label">
-                    <InputCheckbox @bind-Value="Input.RememberMachine" />
-                    Remember this machine
-                </label>
-            </div>
-            <div>
-                <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-            </div>
-        </EditForm>
+<div class="mx-auto mt-8 max-w-lg">
+    <Heading1>Two-factor authentication</Heading1>
+    <StatusMessage Message="@message" />
+    <p class="my-4">Your login is protected with an authenticator app. Enter your authenticator code below.</p>
+    <div class="mt-3 overflow-hidden shadow sm:rounded-md">
+        <div class="bg-white px-4 dark:bg-black sm:p-6">
+            <EditForm Model="Input" FormName="login-with-2fa" OnValidSubmit="OnValidSubmitAsync" method="post">
+                <input type="hidden" name="ReturnUrl" value="@ReturnUrl" />
+                <input type="hidden" name="RememberMe" value="@RememberMe" />
+                <DataAnnotationsValidator />
+                <ValidationSummary class="mb-3 text-center font-semibold text-danger" />
+
+                <div class="flex flex-col gap-y-4">
+                    <div>
+                        <label for="two-factor-code" class="@TextInput.LabelClasses">Authenticator code</label>
+                        <div class="relative mt-1 rounded-md shadow-sm">
+                            <InputText id="two-factor-code" type="text" @bind-Value="Input.TwoFactorCode" class="@TextInput.InputClasses" autocomplete="off" />
+                        </div>
+                        <ValidationMessage For="() => Input.TwoFactorCode" class="mt-2 text-danger text-sm" />
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <InputCheckbox id="remember-machine" @bind-Value="Input.RememberMachine" class="@CheckboxInput.InputClasses" />
+                            <label for="remember-machine" class="ml-2 block select-none text-sm text-gray-900 dark:text-gray-50">
+                                Remember this machine
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <Button type="submit">Log in</Button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
     </div>
 </div>
-<p>
+<p class="mt-4">
     Don't have access to your authenticator device? You can
-    <a href="Account/LoginWithRecoveryCode?ReturnUrl=@ReturnUrl">log in with a recovery code</a>.
+    <HyperLink class="font-semibold" id="recovery-code-login" href=@($"Account/LoginWithRecoveryCode?ReturnUrl={ReturnUrl}")>log in with a recovery code</HyperLink>.
 </p>
 
 @code {

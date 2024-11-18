@@ -1,8 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+const { fontFamily } = require("tailwindcss/defaultTheme")
 module.exports = {
-    darkMode: ["class"],
+    /*darkMode: ['selector', '[data-mode="dark"]'],*/
+    darkMode: ['selector'],
     content: [
-        "./../**/*.{razor,html,cshtml,cs}",
+        "./../../**/*.{razor,html,cshtml,cs}",
         "!node_modules"
     ],
     theme: {
@@ -28,6 +30,8 @@ module.exports = {
                 //mono: ["var(--font-mono)", ...fontFamily.mono],
             },
             colors: {
+                danger: 'rgb(153 27 27)',
+                success: 'rgb(22 101 52)',
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 card: {
@@ -61,6 +65,9 @@ module.exports = {
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
                 ring: 'hsl(var(--ring))',
+                ringColor: {
+                    DEFAULT: 'hsl(var(--ring))', // Customize to match your theme
+                },
                 chart: {
                     '1': 'hsl(var(--chart-1))',
                     '2': 'hsl(var(--chart-2))',
@@ -71,6 +78,6 @@ module.exports = {
             },
         },
   },
-  plugins: [],
+    plugins: [],
 }
 

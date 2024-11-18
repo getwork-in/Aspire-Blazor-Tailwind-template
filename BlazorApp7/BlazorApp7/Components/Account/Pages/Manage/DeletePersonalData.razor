@@ -3,6 +3,7 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
 @using BlazorApp7.Data
+@using static BlazorApp7.Components.Account.Pages.Login
 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -12,30 +13,37 @@
 
 <PageTitle>Delete Personal Data</PageTitle>
 
-<StatusMessage Message="@message" />
+<Heading3>Delete Personal Data</Heading3>
 
-<h3>Delete Personal Data</h3>
+<div class="max-w-xl">
+    <Alert Type="AlertType.Error" class="mb-3">
+        Deleting this data permanently removes your account, and cannot be recovered.
+    </Alert>
 
-<div class="alert alert-warning" role="alert">
-    <p>
-        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-    </p>
-</div>
+    <div class="mt-3 overflow-hidden shadow sm:rounded-md">
+        <div class="bg-white px-4 dark:bg-black sm:p-6">
+            <StatusMessage Message="@message" />
 
-<div>
-    <EditForm Model="Input" FormName="delete-user" OnValidSubmit="OnValidSubmitAsync" method="post">
-        <DataAnnotationsValidator />
-        <ValidationSummary class="text-danger" role="alert" />
-        @if (requirePassword)
-        {
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Please enter your password." />
-                <label for="Input.Password" class="form-label">Password</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
-            </div>
-        }
-        <button class="w-100 btn btn-lg btn-danger" type="submit">Delete data and close my account</button>
-    </EditForm>
+            <EditForm class="mt-3" id="delete-user" Model="Input" FormName="delete-user" OnValidSubmit="OnValidSubmitAsync" method="post">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="mt-2 text-sm text-danger" />
+
+                <div class="flex flex-col gap-4">
+                    @if (requirePassword)
+                    {
+                        <div>
+                            <label for="password" class="@TextInput.LabelClasses">Password</label>
+                            <div class="relative mt-1 rounded-md shadow-sm">
+                                <InputText id="password" type="password" @bind-Value="Input.Password" class="@TextInput.InputClasses" autocomplete="current-password" aria-required="true" placeholder="Please enter your password." />
+                            </div>
+                            <ValidationMessage For="() => Input.Password" class="mt-2 text-danger text-sm" />
+                        </div>
+                    }
+                    <Button Variant="ButtonVariant.Destructive" type="submit">Delete data and close my account</Button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
 </div>
 
 @code {

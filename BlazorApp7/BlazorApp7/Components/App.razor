@@ -11,13 +11,41 @@
     <HeadOutlet />
 </head>
 
-<body class="bg-white dark:bg-black dark:text-white">
-@* <body> *@
-    @* <ThemeProvider> *@
-        <Routes />
-    @* </ThemeProvider> *@
+<body>
+    <Routes />
     <script src="_framework/blazor.web.js"></script>
     <script src="js/site.js"></script>
+    <script>JS.init({ colorScheme:false })</script>
 </body>
 
 </html>
+
+<script>
+    window.JS = {
+        init: function (opt) {
+            if (!opt || opt.colorScheme !== false) {
+                let html = document.documentElement;
+                html.classList.remove("light", "dark")
+
+                let colorScheme = opt && typeof opt.colorScheme === 'string'
+                    ? opt.colorScheme
+                    : location.search === "?dark"
+                        ? "dark"
+                        : location.search === "?light"
+                            ? "light"
+                            : localStorage.getItem('color-scheme');
+
+                let darkMode = colorScheme != null
+                    ? colorScheme === 'dark'
+                    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                html.classList.toggle('dark', darkMode);
+                // html.style.setProperty('color-scheme', darkMode ? 'dark' : 'light');
+
+                if (localStorage.getItem('color-scheme') === null) {
+                    localStorage.setItem('color-scheme', darkMode ? 'dark' : 'light');
+                }
+            }
+        }
+    };
+</script>

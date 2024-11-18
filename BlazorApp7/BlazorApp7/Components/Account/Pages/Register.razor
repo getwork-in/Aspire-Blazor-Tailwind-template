@@ -6,6 +6,8 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
 @using BlazorApp7.Data
+@using static BlazorApp7.Components.Account.Pages.Login
+@using static BlazorApp7.Components.CssUtils
 
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserStore<ApplicationUser> UserStore
@@ -17,46 +19,50 @@
 
 <PageTitle>Register</PageTitle>
 
-<div class="grid-cols-1 mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
-    <div class="lg:col-span-2">
-        <StatusMessage Message="@Message" />
-        <EditForm class="space-y-6" Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-            <DataAnnotationsValidator />
-            <h2 class="text-xl font-semibold">Create a new account</h2>
-            <hr class="my-4 border-gray-300" />
-            <!-- Email Input -->
-            <div class="relative">
-                <label for="Input.Email" class="block text-sm font-medium text-gray-700">Email</label>
-                <InputText @bind-Value="Input.Email" id="Input.Email" autocomplete="username"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                            aria-required="true" placeholder="name@example.com" />
-                <ValidationMessage For="() => Input.Email" class="text-red-500 text-sm mt-1" />
-            </div>
-            <!-- Password Input -->
-            <div class="relative">
-                <label for="Input.Password" class="block text-sm font-medium text-gray-700">Password</label>
-                <InputText type="password" @bind-Value="Input.Password" id="Input.Password" autocomplete="new-password"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                            aria-required="true" placeholder="password" />
-                <ValidationMessage For="() => Input.Password" class="text-red-500 text-sm mt-1" />
-            </div>
-            <!-- Confirm Password Input -->
-            <div class="relative">
-                <label for="Input.ConfirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" id="Input.ConfirmPassword" autocomplete="new-password"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                            aria-required="true" placeholder="password" />
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-red-500 text-sm mt-1" />
-            </div>
-            <Button Size="ButtonSize.Large">Register</Button>
-        </EditForm>
-    </div>
+<div class="mx-auto mt-8 max-w-lg">
+    <Heading1>Register</Heading1>
 
-    <!-- External Login Section -->
-    <div>
-        <section class="rounded-lg bg-gray-100 p-6 shadow">
-            <h3 class="mb-4 text-xl font-semibold">Use another service to register</h3>
-            <hr class="my-4 border-gray-300" />
+    <StatusMessage Message="@Message" />
+    <div class="mt-3 overflow-hidden shadow sm:rounded-md">
+        <div class="sm:p-6">
+            <EditForm id="registerForm" Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+                <Heading3>Create a new account.</Heading3>
+                <DataAnnotationsValidator />
+                @* <ValidationSummary class="mb-3 text-center font-semibold text-danger" /> *@
+                <div class="flex flex-col gap-y-4">
+                    <div>
+                        <label for="email" class="@TextInput.LabelClasses">Email</label>
+                        <div class="relative mt-1 rounded-md shadow-sm">
+                            <InputText id="email" type="text" @bind-Value="Input.Email" class="@TextInput.InputClasses" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        </div>
+                        <ValidationMessage For="() => Input.Email" class="mt-2 text-danger text-sm" />
+                    </div>
+                    <div>
+                        <label for="password" class="@TextInput.LabelClasses">Password</label>
+                        <div class="relative mt-1 rounded-md shadow-sm">
+                            <InputText id="password" type="password" @bind-Value="Input.Password" class="@TextInput.InputClasses" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        </div>
+                        <ValidationMessage For="() => Input.Password" class="mt-2 text-danger text-sm" />
+                    </div>
+                    <div>
+                        <label for="confirm-password" class="@TextInput.LabelClasses">Confirm Password</label>
+                        <div class="relative mt-1 rounded-md shadow-sm">
+                            <InputText 
+                                id="confirm-password" 
+                                type="password" @bind-Value="Input.ConfirmPassword" class="@TextInput.InputClasses" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        </div>
+                        <ValidationMessage For="() => Input.ConfirmPassword" class="mt-2 text-danger text-sm" />
+                    </div>
+                    <div>
+                        <Button Size="ButtonSize.Default" id="registerSubmit" type="submit">Register</Button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+    <div class="mt-8">
+        <section>
+            <Heading3>Use another service to register.</Heading3>
             <ExternalLoginPicker />
         </section>
     </div>

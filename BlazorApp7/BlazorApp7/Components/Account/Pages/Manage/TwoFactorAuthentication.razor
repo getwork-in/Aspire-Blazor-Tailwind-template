@@ -11,81 +11,70 @@
 
 <PageTitle>Two-factor authentication (2FA)</PageTitle>
 
-<StatusMessage />
-<h3 class="mb-6 text-2xl font-bold">Two-Factor Authentication (2FA)</h3>
+<Heading3>Two-factor authentication (2FA)</Heading3>
 
-@if (canTrack)
-{
-    @if (is2faEnabled)
+<div class="max-w-xl">
+    <StatusMessage class="mb-3" />
+
+    @if (canTrack)
     {
-        <!-- Recovery Codes Section -->
-        @if (recoveryCodesLeft == 0)
+        if (is2faEnabled)
         {
-            <div class="mb-4 rounded border border-red-400 bg-red-100 p-4 text-red-700">
-                <strong>You have no recovery codes left.</strong>
-                <p>You must <a href="Account/Manage/GenerateRecoveryCodes" class="text-blue-600 hover:underline">generate a new set of recovery codes</a> before you can log in with a recovery code.</p>
-            </div>
-        }
-        else if (recoveryCodesLeft == 1)
-        {
-            <div class="mb-4 rounded border border-red-400 bg-red-100 p-4 text-red-700">
-                <strong>You have 1 recovery code left.</strong>
-                <p>You can <a href="Account/Manage/GenerateRecoveryCodes" class="text-blue-600 hover:underline">generate a new set of recovery codes</a>.</p>
-            </div>
-        }
-        else if (recoveryCodesLeft <= 3)
-        {
-            <div class="mb-4 rounded border border-yellow-400 bg-yellow-100 p-4 text-yellow-700">
-                <strong>You have @recoveryCodesLeft recovery codes left.</strong>
-                <p>You should <a href="Account/Manage/GenerateRecoveryCodes" class="text-blue-600 hover:underline">generate a new set of recovery codes</a>.</p>
-            </div>
+            if (recoveryCodesLeft == 0)
+            {
+                <Alert Type="AlertType.Error">
+                    <strong>You have no recovery codes left.</strong>
+                    <p>You must <HyperLink href="Account/Manage/GenerateRecoveryCodes">generate a new set of recovery codes</HyperLink> before you can log in with a recovery code.</p>
+                </Alert>
+            }
+            else if (recoveryCodesLeft == 1)
+            {
+                <Alert Type="AlertType.Error">
+                    <strong>You have 1 recovery code left.</strong>
+                    <p>You can <HyperLink href="Account/Manage/GenerateRecoveryCodes">generate a new set of recovery codes</HyperLink>.</p>
+                </Alert>
+            }
+            else if (recoveryCodesLeft <= 3)
+            {
+                <Alert Type="AlertType.Error">
+                    <strong>You have @recoveryCodesLeft recovery codes left.</strong>
+                    <p>You should <HyperLink href="Account/Manage/GenerateRecoveryCodes">generate a new set of recovery codes</HyperLink>.</p>
+                </Alert>
+            }
+
+            if (isMachineRemembered)
+            {
+                <form class="inline-block" @formname="forget-browser" @onsubmit="OnSubmitForgetBrowserAsync" method="post">
+                    <Button type="submit">Forget this browser</Button>
+                </form>
+            }
+
+            <HyperLink href="Account/Manage/Disable2fa">Disable 2FA</HyperLink>
+            <HyperLink href="Account/Manage/GenerateRecoveryCodes">Reset recovery codes</HyperLink>
         }
 
-        <!-- Forget Browser Button -->
-        @if (isMachineRemembered)
-        {
-            <form @formname="forget-browser" @onsubmit="OnSubmitForgetBrowserAsync" method="post" class="inline-block">
-                <AntiforgeryToken />
-                <button type="submit" class="mr-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                    Forget this browser
-                </button>
-            </form>
-        }
-
-        <!-- 2FA Management Buttons -->
-        <a href="Account/Manage/Disable2fa" class="mr-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Disable 2FA
-        </a>
-        <a href="Account/Manage/GenerateRecoveryCodes" class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Reset recovery codes
-        </a>
-
-        <!-- Authenticator App Section -->
-        <h4 class="mt-8 text-xl font-semibold">Authenticator App</h4>
-        @if (!hasAuthenticator)
-        {
-            <a href="Account/Manage/EnableAuthenticator" class="mt-4 inline-block rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                Add authenticator app
-            </a>
-        }
-        else
-        {
-            <a href="Account/Manage/EnableAuthenticator" class="mr-2 mt-4 inline-block rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                Set up authenticator app
-            </a>
-            <a href="Account/Manage/ResetAuthenticator" class="mt-4 inline-block rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                Reset authenticator app
-            </a>
-        }
+        <div class="mt-4">
+            <Heading4 class="mb-4">Authenticator app</Heading4>
+            @if (!hasAuthenticator)
+            {
+                <HyperLink id="enable-authenticator" href="Account/Manage/EnableAuthenticator">Add authenticator app</HyperLink>
+            }
+            else
+            {
+                <HyperLink id="enable-authenticator" href="Account/Manage/EnableAuthenticator">Set up authenticator app</HyperLink>
+                <HyperLink id="reset-authenticator" href="Account/Manage/ResetAuthenticator">Reset authenticator app</HyperLink>
+            }
+        </div>
     }
-}
-else
-{
-    <div class="mb-4 rounded border border-red-400 bg-red-100 p-4 text-red-700">
-        <strong>Privacy and cookie policy have not been accepted.</strong>
-        <p>You must accept the policy before you can enable two-factor authentication.</p>
-    </div>
-}
+    else
+    {
+        <Alert Type="AlertType.Error">
+            <strong>Privacy and cookie policy have not been accepted.</strong>
+            <p>You must accept the policy before you can enable two factor authentication.</p>
+        </Alert>
+    }
+
+</div>
 
 @code {
     private bool canTrack;

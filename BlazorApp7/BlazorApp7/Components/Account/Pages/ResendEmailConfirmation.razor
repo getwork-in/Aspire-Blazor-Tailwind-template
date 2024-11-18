@@ -6,6 +6,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
 @using BlazorApp7.Data
+@using static BlazorApp7.Components.Account.Pages.Login
 
 @inject UserManager<ApplicationUser> UserManager
 @inject IEmailSender<ApplicationUser> EmailSender
@@ -14,23 +15,27 @@
 
 <PageTitle>Resend email confirmation</PageTitle>
 
-<h1>Resend email confirmation</h1>
-<h2>Enter your email.</h2>
-<hr />
-<StatusMessage Message="@message" />
-<div class="row">
-    <div class="col-md-4">
-        <EditForm Model="Input" FormName="resend-email-confirmation" OnValidSubmit="OnValidSubmitAsync" method="post">
-            <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" id="Input.Email" class="form-control" aria-required="true" placeholder="name@example.com" />
-                <label for="Input.Email" class="form-label">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
+<div class="mx-auto mt-8 max-w-lg">
+    <Heading1>Resend email confirmation</Heading1>
+    <Heading3>Enter your email.</Heading3>
+
+    <StatusMessage class="mb-3" Message="@message" />
+    <EditForm Model="Input" FormName="resend-email-confirmation" OnValidSubmit="OnValidSubmitAsync" method="post">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="mb-3 text-center font-semibold text-danger" />
+        <div class="flex flex-col gap-y-4">
+            <div>
+                <label for="email" class="@TextInput.LabelClasses">Email</label>
+                <div class="relative mt-1 rounded-md shadow-sm">
+                    <InputText id="email" type="text" @bind-Value="Input.Email" class="@TextInput.InputClasses" aria-required="true" placeholder="name@example.com" />
+                </div>
+                <ValidationMessage For="() => Input.Email" class="mt-2 text-danger text-sm" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Resend</button>
-        </EditForm>
-    </div>
+            <div>
+                <Button type="submit">Resend</Button>
+            </div>
+        </div>
+    </EditForm>
 </div>
 
 @code {

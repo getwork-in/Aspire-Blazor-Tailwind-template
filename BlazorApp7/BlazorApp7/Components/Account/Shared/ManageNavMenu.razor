@@ -1,54 +1,45 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using BlazorApp7.Components.Account.Pages.Manage
 @using BlazorApp7.Data
 
+@inject NavigationManager NavigationManager
 @inject SignInManager<ApplicationUser> SignInManager
 
-<ul class="space-y-2">
+<ul class="mt-4">
     <li>
-        <NavLink href="Account/Manage" Match="NavLinkMatch.All"
-                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
-                 activeClass="bg-blue-500 text-white">
-            Profile
-        </NavLink>
+        <NavLink class="@ManageNavPages.IndexNavClass(NavigationManager)"
+                 id="profile" href="@ManageNavPages.Index" Match="NavLinkMatch.All">Profile</NavLink>
     </li>
     <li>
-        <NavLink href="Account/Manage/Email"
-                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
-                 activeClass="bg-blue-500 text-white">
-            Email
-        </NavLink>
+        <NavLink class="@ManageNavPages.EmailNavClass(NavigationManager)"
+                 id="manage-email" href="@ManageNavPages.Email">Email</NavLink>
     </li>
     <li>
-        <NavLink href="Account/Manage/ChangePassword"
-                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
-                 activeClass="bg-blue-500 text-white">
-            Password
-        </NavLink>
+        <NavLink class="@ManageNavPages.ChangePasswordNavClass(NavigationManager)"
+                 id="change-password" href="@ManageNavPages.ChangePassword">Password</NavLink>
     </li>
     @if (hasExternalLogins)
     {
-        <li>
-            <NavLink href="Account/Manage/ExternalLogins"
-                     class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
-                     activeClass="bg-blue-500 text-white">
-                External logins
-            </NavLink>
+        <li id="external-logins">
+            <NavLink class="@ManageNavPages.ExternalLoginsNavClass(NavigationManager)"
+                     id="external-login" href="@ManageNavPages.ExternalLogins">External logins</NavLink>
         </li>
     }
     <li>
-        <NavLink href="Account/Manage/TwoFactorAuthentication"
-                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
-                 activeClass="bg-blue-500 text-white">
-            Two-factor authentication
-        </NavLink>
+        <NavLink class="@ManageNavPages.TwoFactorAuthenticationNavClass(NavigationManager)"
+                 id="two-factor" href="@ManageNavPages.TwoFactorAuthentication">Two-factor authentication</NavLink>
     </li>
     <li>
-        <NavLink href="Account/Manage/PersonalData"
-                 class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100"
-                 activeClass="bg-blue-500 text-white">
-            Personal data
-        </NavLink>
+        <NavLink class="@ManageNavPages.PersonalDataNavClass(NavigationManager)"
+                 id="personal-data" href="@ManageNavPages.PersonalData">Personal data</NavLink>
     </li>
+    @* @if (HostContext.AppHost.HasPlugin<ApiKeysFeature>())
+    {
+        <li>
+            <NavLink class="@ManageNavPages.PageNavClass(NavigationManager, "Account/Manage/ApiKeys")"
+                     id="api-keys" href="Account/Manage/ApiKeys">API Keys</NavLink>
+        </li>
+    } *@
 </ul>
 
 @code {

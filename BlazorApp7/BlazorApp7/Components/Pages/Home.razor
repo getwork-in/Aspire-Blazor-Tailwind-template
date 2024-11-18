@@ -7,7 +7,45 @@
 
 <PageTitle>Home</PageTitle>
 
-<p>Hello, world</p>
-<div class="border-accent-foreground max-w-8xl text-4xl font-bold">
-    Welcome to your new app. How are you feeling today?
-</div>
+<!-- Welcome Section -->
+<section class="py-10 text-center">
+    <h1 class="mb-6 text-5xl font-extrabold">
+        Hello, world
+    </h1>
+    <div class="border-accent-foreground mx-auto max-w-4xl text-3xl font-bold">
+        Welcome to your new app. How are you feeling today?
+    </div>
+</section>
+
+<!-- Button Demo Section -->
+<section class="py-8">
+    <h2 class="text-secondary-foreground mb-6 text-center text-2xl font-semibold">
+        Button Component Demonstration
+    </h2>
+    <div class="flex flex-wrap justify-center gap-4">
+        <!-- Default Button -->
+        <Button Variant="ButtonVariant.Default" Size="ButtonSize.Default" OnClick="@(() => Console.WriteLine("Clicked Default"))">
+            Default Button
+        </Button>
+
+        <!-- Small Destructive Button -->
+        <Button Variant="ButtonVariant.Destructive" Size="ButtonSize.Small" OnClick="@(() => Console.WriteLine("Clicked Destructive"))">
+            Small Destructive Button
+        </Button>
+
+        <!-- Large Outline Button -->
+        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Large">
+            Large Outline Button
+        </Button>
+
+        <!-- Link Button -->
+        <Button Variant="ButtonVariant.Link" Size="ButtonSize.Default">
+            Link Button
+        </Button>
+
+        <!-- Default Button (No Variant Specified) -->
+        <Button>
+            Default Button
+        </Button>
+    </div>
+</section>

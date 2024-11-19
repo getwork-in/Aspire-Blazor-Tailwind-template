@@ -8,14 +8,15 @@
 
     <p class="my-4">This component demonstrates showing data.</p>
 
+    <BlazorApp7.Components.Shared.FormLoading Loading="forecasts is null" />
     @if (forecasts is null)
     {
         <Loading />
     }
     else
     {
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+            <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                      <th scope="col" class="px-6 py-3">Date</th>
                      <th scope="col" class="px-6 py-3">Temp. (C)</th>
@@ -26,7 +27,7 @@
             <tbody>
                 @foreach (var forecast in forecasts)
                 {
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-6 py-4">@forecast.Date.ToString("d")</td>
                         <td class="px-6 py-4">@forecast.TemperatureC</td>
                         <td class="px-6 py-4">@forecast.TemperatureF</td>
@@ -44,7 +45,7 @@
     protected override async Task OnInitializedAsync()
     {
         // Simulate asynchronous loading to demonstrate streaming rendering
-        await Task.Delay(1000);
+        await Task.Delay(2000);
 
         var startDate = DateOnly.FromDateTime(DateTime.Now);
         var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };

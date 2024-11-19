@@ -11,78 +11,82 @@
     <div class="flex-1 flex items-center justify-between space-x-2 md:justify-end">
         <nav class="leading-6 flex items-center font-semibold text-slate-700 dark:text-slate-200">
             <ul class="m-0 flex w-full flex-wrap items-center justify-end">
-                <li className="relative flex flex-wrap just-fu-start m-0">
-                    <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="" Match="NavLinkMatch.All">
-                        <span aria-hidden="true"></span> Home
-                    </NavLink>
+                <li class="just-fu-start relative m-0 flex flex-wrap">
+                    <NavLink href="" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" ActiveClass="text-blue-700 dark:text-blue-300" Match="NavLinkMatch.All">Home</NavLink>
                 </li>
-                <li className="relative flex flex-wrap just-fu-start m-0">
-                    <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="counter">
-                        <span aria-hidden="true"></span> Counter
-                    </NavLink>
+                <li class="just-fu-start relative m-0 flex flex-wrap">
+                    <NavLink href="counter" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" ActiveClass="text-blue-700 dark:text-blue-300">Counter</NavLink>
+                </li>
+                <li class="just-fu-start relative m-0 flex flex-wrap">
+                    <NavLink href="weather" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" ActiveClass="text-blue-700 dark:text-blue-300">Weather</NavLink>
                 </li>
                 <AuthorizeView Roles="Admin">
-                     <Authorized>
-                        <li className="relative flex flex-wrap just-fu-start m-0">
-                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="admin">
-                                <span aria-hidden="true"></span> Admin
-                            </NavLink>
+                    <Authorized>
+                        <li class="just-fu-start relative m-0 flex flex-wrap">
+                            <NavLink href="admin/" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" ActiveClass="text-blue-700 dark:text-blue-300">Admin</NavLink>
                         </li>
                     </Authorized>
                 </AuthorizeView>
                 <AuthorizeView Roles="Developer">
                     <Authorized>
-                        <li className="relative flex flex-wrap just-fu-start m-0">
-                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="dev">
-                                <span aria-hidden="true"></span> Developers
-                            </NavLink>
+                        <li class="just-fu-start relative m-0 flex flex-wrap">
+                            <NavLink href="dev/" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" ActiveClass="text-blue-700 dark:text-blue-300">Development</NavLink>
                         </li>
                     </Authorized>
                 </AuthorizeView>
                 <AuthorizeView>
                     <Authorized>
-                        <li className="relative flex flex-wrap just-fu-start m-0">
-                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="Account/Manage">
-                                <span aria-hidden="true"></span> @context.User.Identity?.Name
-                            </NavLink>
+                        <li>
+                            <div class="relative mx-3">
+                                <div>
+                                    <a href="Account/Manage"
+                                       class="flex max-w-xs items-center rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:ring-offset-black lg:p-2 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-900" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                        <img class="h-8 w-8 rounded-full" src="@DefaultProfileUrl" alt="">
+                                        <span class="ml-3 hidden text-sm font-medium text-gray-700 dark:text-gray-300 lg:block">
+                                            <span class="sr-only">Open user menu for </span>
+                                            @context.User.GetDisplayName()
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
                         </li>
-
-                        <div class="just-fu-start relative m-0 flex flex-wrap">
-                            <form action="Account/Logout" method="post">
-                                <AntiforgeryToken />
-                                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                                <button type="submit" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400">
-                                    <span aria-hidden="true"></span> Logout
-                                </button>
-                            </form>
-                        </div>
+                        <li class="just-fu-start relative m-0 mr-3 flex flex-wrap">
+                                <form action="Account/Logout" method="post">
+                                    <AntiforgeryToken />
+                                    <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                                    <Button Size="ButtonSize.Small" type="submit">
+                                        Sign Out
+                                    </Button>
+                                </form>
+                            </li>
                     </Authorized>
+                    <Authorizing>
+                        <li class="just-fu-start relative m-0 flex flex-wrap">
+                            <Loading /> Authorizing...
+                        </li>
+                    </Authorizing>
                     <NotAuthorized>
-                        <li className="relative flex flex-wrap just-fu-start m-0">
-                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="Account/Register">
-                                <span aria-hidden="true"></span> Register
+                        <li class="just-fu-start relative m-0 flex flex-wrap">
+                            <NavLink href="Account/Login" class="m-2 mr-4">
+                                <Button Size="ButtonSize.Small">
+                                    Sign In
+                                </Button>
                             </NavLink>
                         </li>
-
-                        <li className="relative flex flex-wrap just-fu-start m-0">
-                            <NavLink ActiveClass="text-link-dark dark:text-link-dark" class="mw-full flex items-center justify-start p-4 hover:text-sky-500 dark:hover:text-sky-400" href="Account/Login">
-                                <span aria-hidden="true"></span> Login
-                            </NavLink>
-                        </li>
-                    </NotAuthorized>
+                     </NotAuthorized>
                 </AuthorizeView>
 
                 <li class="just-fu-start relative m-0 flex flex-wrap">
-                    
-                    @* <span>Dark Mode</span> *@
                     <DarkModeToggleLite />
-                </li>          
+                </li>
             </ul>
         </nav>
     </div>
 </div>
 
 @code {
+    public const string DefaultProfileUrl = "data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cstyle%3E .path%7B%7D %3C/style%3E%3Cg id='male-svg'%3E%3Cpath fill='%23556080' d='M1 92.84V84.14C1 84.14 2.38 78.81 8.81 77.16C8.81 77.16 19.16 73.37 27.26 69.85C31.46 68.02 32.36 66.93 36.59 65.06C36.59 65.06 37.03 62.9 36.87 61.6H40.18C40.18 61.6 40.93 62.05 40.18 56.94C40.18 56.94 35.63 55.78 35.45 47.66C35.45 47.66 32.41 48.68 32.22 43.76C32.1 40.42 29.52 37.52 33.23 35.12L31.35 30.02C31.35 30.02 28.08 9.51 38.95 12.54C34.36 7.06 64.93 1.59 66.91 18.96C66.91 18.96 68.33 28.35 66.91 34.77C66.91 34.77 71.38 34.25 68.39 42.84C68.39 42.84 66.75 49.01 64.23 47.62C64.23 47.62 64.65 55.43 60.68 56.76C60.68 56.76 60.96 60.92 60.96 61.2L64.74 61.76C64.74 61.76 64.17 65.16 64.84 65.54C64.84 65.54 69.32 68.61 74.66 69.98C84.96 72.62 97.96 77.16 97.96 81.13C97.96 81.13 99 86.42 99 92.85L1 92.84Z'/%3E%3C/g%3E%3C/svg%3E";
+
     private string? currentUrl;
 
     protected override void OnInitialized()

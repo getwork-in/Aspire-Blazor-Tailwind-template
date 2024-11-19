@@ -17,9 +17,4 @@
     <ProjectReference Include="..\..\BlazorApp7.Components\BlazorApp7.Components.csproj" />
   </ItemGroup>
 	
-    <!--<Target Name="NpmRunBuild" BeforeTargets="BeforePublish">
-	    <Exec Command="npm ci" />
-	    <Exec Command="npm run build:css" />
-    </Target>-->
-	
 </Project>

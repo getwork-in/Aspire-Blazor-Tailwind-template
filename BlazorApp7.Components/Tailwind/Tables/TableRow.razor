@@ -1,0 +1,9 @@
+﻿@inherits UiComponentLiteBase
+
+<tr class="@ClassNames("border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted", @class)" @attributes="AdditionalAttributes">
+    @ChildContent
+</tr>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

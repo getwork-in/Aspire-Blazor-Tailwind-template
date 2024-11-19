@@ -6,7 +6,7 @@ namespace BlazorApp7.Components;
 
 public abstract class UiComponentBase : ComponentBase
 {
-	[Inject] public IJSRuntime JS { get; set; }
+	[Inject] public IJSRuntime JS { get; set; } = default!;
 
 	/// <summary>
 	/// Optional user defined classes for this component

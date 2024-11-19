@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Components\Shared\" />
   </ItemGroup>
 	
     <Target Name="NpmRunBuild" BeforeTargets="BeforePublish">

@@ -1,0 +1,9 @@
+﻿@inherits UiComponentLiteBase
+
+<tbody class="@ClassNames("[&_tr:last-child]:border-0", @class)" @attributes="AdditionalAttributes">
+    @ChildContent
+</tbody>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

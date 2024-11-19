@@ -1,0 +1,9 @@
+﻿@inherits UiComponentLiteBase
+
+<thead class="@ClassNames("[&_tr]:border-b", @class)" @attributes="AdditionalAttributes">
+    @ChildContent
+</thead>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

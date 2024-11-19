@@ -1,0 +1,9 @@
+﻿@inherits UiComponentLiteBase
+
+<caption class="@ClassNames("mt-4 text-sm text-muted-foreground", @class)" @attributes="AdditionalAttributes">
+    @ChildContent
+</caption>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

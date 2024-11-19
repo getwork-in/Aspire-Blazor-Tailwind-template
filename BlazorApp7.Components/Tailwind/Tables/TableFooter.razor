@@ -1,0 +1,9 @@
+﻿@inherits UiComponentLiteBase
+
+<tfoot class="@ClassNames("border-t bg-muted/50 font-medium [&>tr]:last:border-b-0", @class)" @attributes="AdditionalAttributes">
+    @ChildContent
+</tfoot>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

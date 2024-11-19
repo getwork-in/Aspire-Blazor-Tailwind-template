@@ -1,4 +1,5 @@
 ﻿@page "/weather"
+@using BlazorApp7.Components.Tailwind.Tables
 @attribute [StreamRendering(enabled: true)]
 
 <PageTitle>Weather</PageTitle>
@@ -8,34 +9,34 @@
 
     <p class="my-4">This component demonstrates showing data.</p>
 
-    <BlazorApp7.Components.Shared.FormLoading Loading="forecasts is null" />
+    <FormLoading Loading="forecasts is null" />
     @if (forecasts is null)
     {
         <Loading />
     }
     else
     {
-        <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-            <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                     <th scope="col" class="px-6 py-3">Date</th>
-                     <th scope="col" class="px-6 py-3">Temp. (C)</th>
-                     <th scope="col" class="px-6 py-3">Temp. (F)</th>
-                     <th scope="col" class="px-6 py-3">Summary</th>
-                </tr>
-            </thead>
-            <tbody>
+        <Table @class="table-auto">
+            <TableHeader>
+                <TableRow>
+                    <TableHead scope="col" class="px-6 py-3">Date</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Temp. (C)</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Temp. (F)</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Summary</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
                 @foreach (var forecast in forecasts)
                 {
-                    <tr class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
-                        <td class="px-6 py-4">@forecast.Date.ToString("d")</td>
-                        <td class="px-6 py-4">@forecast.TemperatureC</td>
-                        <td class="px-6 py-4">@forecast.TemperatureF</td>
-                        <td class="px-6 py-4">@forecast.Summary</td>
-                    </tr>
+                    <TableRow>
+                        <TableCell class="px-6 py-4">@forecast.Date.ToString("d")</TableCell>
+                        <TableCell class="px-6 py-4">@forecast.TemperatureC</TableCell>
+                        <TableCell class="px-6 py-4">@forecast.TemperatureF</TableCell>
+                        <TableCell class="px-6 py-4">@forecast.Summary</TableCell>
+                    </TableRow>
                 }
-            </tbody>
-        </table>
+            </TableBody>
+        </Table>
     }
 </div>
 

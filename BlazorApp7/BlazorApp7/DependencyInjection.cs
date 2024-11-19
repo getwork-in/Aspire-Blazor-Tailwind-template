@@ -1,13 +1,14 @@
 ﻿using BlazorApp7.Data;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 
 namespace BlazorApp7;
 
 public static class DependencyInjection
 {
-	public static string? GetDisplayName(this ClaimsPrincipal? principal) =>
-		principal?.FindFirst(principal.Identities.FirstOrDefault()?.NameClaimType ?? ClaimTypes.Name)?.Value;
+	//public static string[] GetRoles(this ClaimsPrincipal? principal) => principal?.Claims.Where(x => x.Type == ClaimTypes.Role)
+	//	.Select(x => x.Value).ToArray() ?? [];
+	//public static string? GetDisplayName(this ClaimsPrincipal? principal) =>
+	//	principal?.FindFirst(principal.Identities.FirstOrDefault()?.NameClaimType ?? ClaimTypes.Name)?.Value;
 
 	public static async Task ConfigureDbAsync(this WebApplication app)
 	{

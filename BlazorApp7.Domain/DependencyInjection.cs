@@ -6,7 +6,7 @@ public static class DependencyInjection
 {
 	public static IServiceCollection AddGMS(this IServiceCollection services/*, IConfiguration configuration*/)
 	{
-		//services.AddDbContext<GMSContext>(options =>
+		//services.AddDbContext<AppContext>(options =>
 		//{
 		//	options.UseSqlServer(configuration.GetConnectionString("GMS"));
 		//});

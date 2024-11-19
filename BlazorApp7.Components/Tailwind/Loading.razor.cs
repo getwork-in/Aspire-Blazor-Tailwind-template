@@ -12,7 +12,6 @@ namespace BlazorApp7.Components.Tailwind;
 public partial class Loading : UiComponentBase
 {
 	[Parameter] public string Message { get; set; } = "Loading...";
-	[Inject] IJSRuntime JS { get; set; }
 	[Inject] NavigationManager NavigationManager { get; set; } = default!;
 
 	string prerenderedHtml { get; set; } = "";

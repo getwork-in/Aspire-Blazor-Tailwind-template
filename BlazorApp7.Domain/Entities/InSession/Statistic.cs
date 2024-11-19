@@ -1,4 +1,4 @@
-﻿namespace BlazorApp7.GMS.Entities.SessionOwned;
+﻿namespace BlazorApp7.GMS.Entities.InSession;
 
 public class Statistic
 {

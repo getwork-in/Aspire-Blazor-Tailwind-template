@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Authorization
+
+@* @page "/profile" *@
+@attribute [Authorize]
+@inject NavigationManager NavigationManager
+
+<AuthorizeView>
+    <div class="mb-3 overflow-hidden rounded-lg dark:border dark:border-gray-800">
+        <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
+        <div class="p-6">
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <div class="sm:flex sm:space-x-5">
+                    <div class="flex-shrink-0">
+                        <img class="mx-auto h-24 max-h-24 w-24 max-w-24 rounded-full" src="@ClaimsExtensions.DefaultProfileUrl" alt="">
+                    </div>
+                    <div class="mt-4 sm:mt-0 sm:pt-1 sm:text-left">
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Welcome back,</p>
+                            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-200 sm:text-2xl">@context.User.GetDisplayName()</p>
+                        @if (context.User.GetRoles().Length > 0)
+                        {
+                            <div class="mb-2 flex flex-wrap">
+                                @foreach (var role in context.User.GetRoles())
+                                {
+                                    <span @key="role" title="Role"
+                                          class="mb-1 mr-1 inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-800 dark:text-green-100">
+                                        @role
+                                    </span>
+                                }
+                            </div>
+                        }
+                            @if (context.User.GetPermissions().Length > 0)
+                        {
+                            <div class="mb-2 flex flex-wrap">
+                                @foreach (var perm in context.User.GetPermissions())
+                                {
+                                    <span @key="perm" title="Role"
+                                          class="mb-1 mr-1 inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-800 dark:text-green-100">
+                                        @perm
+                                    </span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-center sm:mt-0">
+                    <form action="Account/Logout" method="post">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                        <Button Variant="ButtonVariant.Default" Size="ButtonSize.Small" type="submit">
+                            Sign Out
+                        </Button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</AuthorizeView>
+
+@code {
+    private string? currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+    }
+}

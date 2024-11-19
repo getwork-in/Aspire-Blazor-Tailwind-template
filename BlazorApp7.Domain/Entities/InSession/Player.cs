@@ -1,13 +1,18 @@
-﻿namespace BlazorApp7.GMS.Entities.SessionOwned;
+﻿using Bogus;
 
-public class Staff
+namespace BlazorApp7.GMS.Entities.InSession;
+
+public class Player
 {
 	public Guid SessionId { get; set; }
 	public Guid Id { get; set; } = Guid.NewGuid();
 	public Guid? TeamId { get; set; }
+
 	public string FirstName { get; set; } = string.Empty;
 	public string LastName { get; set; } = string.Empty;
-	public string Country { get; set; } = string.Empty;
-	public DateTime BirthDate { get; set; }
+	public int Height { get; set; }
+	public int Weight { get; set; }
+	public string Nationality { get; set; } = string.Empty;
 	public string BirthPlace { get; set; } = string.Empty;
+	public DateTime BirthDate { get; set; }
 }

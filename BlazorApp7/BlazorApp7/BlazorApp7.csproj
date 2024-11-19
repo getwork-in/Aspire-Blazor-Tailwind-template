@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BlazorApp7.Components\BlazorApp7.Components.csproj" />
-    <ProjectReference Include="..\..\BlazorApp7.GMS\BlazorApp7.GMS.csproj" />
+    <ProjectReference Include="..\..\BlazorApp7.Domain\BlazorApp7.Domain.csproj" />
     <ProjectReference Include="..\..\BlazorApp7.ServiceDefaults\BlazorApp7.ServiceDefaults.csproj" />
     <ProjectReference Include="..\BlazorApp7.Client\BlazorApp7.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />

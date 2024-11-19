@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorApp7.GMS.Data;
 
-public class GMSContext : DbContext
+public class AppContext : DbContext
 {
 	public DbSet<Session> GameSessions => Set<Session>();
 	public DbSet<UserSession> UserGameSessions => Set<UserSession>();
@@ -15,7 +15,7 @@ public class GMSContext : DbContext
 	//public DbSet<Match> Matches => Set<Match>();
 	//public DbSet<Statistic> Statistics => Set<Statistic>();
 	//public DbSet<Season> Seasons => Set<Season>();
-	public GMSContext(DbContextOptions<GMSContext> options) : base(options)
+	public AppContext(DbContextOptions<AppContext> options) : base(options)
 	{
 	}
 

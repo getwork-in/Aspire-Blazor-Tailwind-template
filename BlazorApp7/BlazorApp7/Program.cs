@@ -1,7 +1,6 @@
 using BlazorApp7;
 using BlazorApp7.Components;
 using BlazorApp7.Components.Account;
-using BlazorApp7.Data;
 using BlazorApp7.Domain.Entities;
 using BlazorApp7.Infrastructure.Data;
 using BlazorApp7.ServiceDefaults;
@@ -47,6 +46,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -77,6 +78,8 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
+app.MapControllers();
 
 await app.ConfigureDbAsync();
 

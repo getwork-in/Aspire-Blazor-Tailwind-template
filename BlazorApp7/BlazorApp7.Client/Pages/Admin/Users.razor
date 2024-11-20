@@ -1,6 +1,8 @@
 ﻿@page "/admin/users"
+@using BlazorApp7.Domain.Entities
 @* @rendermode @(new InteractiveAutoRenderMode(false)) *@
 @rendermode InteractiveAuto
+@inject HttpClient Http
 
 <PageTitle>Users</PageTitle>
 
@@ -13,66 +15,70 @@
 <div class="mx-auto mb-20 mt-8 max-w-screen-lg">
     <Heading1>User Management</Heading1>
     <p class="my-4">This page allows administrators to manage user accounts.</p>
+    @if (loading)
+    {
+        <TableRow>
+            <TableCell class="px-6 py-4" colspan="4">
+                <Loading />
+            </TableCell>
+        </TableRow>
+    }
+    else if (!string.IsNullOrWhiteSpace(message))
+    {
+        <Alert Type="AlertType.Error">@message</Alert>
+    }
+    else
+    {
+        <div class="my-4">
+            <Button OnClick="AddUser">Add New User</Button>
+        </div>
 
-    <div class="my-4">
-        <Button OnClick="AddUser">Add New User</Button>
-    </div>
-
-    <table class="table-auto">
-        <TableHeader>
-            <TableRow>
-                <TableHead scope="col" class="px-6 py-3">Username</TableHead>
-                <TableHead scope="col" class="px-6 py-3">Email</TableHead>
-                <TableHead scope="col" class="px-6 py-3">Role</TableHead>
-                <TableHead scope="col" class="px-6 py-3"></TableHead>
-            </TableRow>
-        </TableHeader>
-        <TableBody>
-            @if (loading)
-            {
+        <table class="table-auto">
+            <TableHeader>
                 <TableRow>
-                    <TableCell class="px-6 py-4" colspan="4">
-                        <Loading />
-                    </TableCell>
+                    <TableHead scope="col" class="px-6 py-3">Username</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Email</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Role</TableHead>
+                    <TableHead scope="col" class="px-6 py-3"></TableHead>
                 </TableRow>
-            }
-            else
-            {
-                @foreach (var user in users)
-                {
-                    <TableRow>
-                        <TableCell class="px-6 py-4">@user.Username</TableCell>
-                        <TableCell class="px-6 py-4">@user.Email</TableCell>
-                        <TableCell class="px-6 py-4">@user.Role</TableCell>
-                        <TableCell class="px-6 py-4">
-                            <Button OnClick="@(() => EditUser(user))">Edit</Button>
-                            <Button OnClick="@(() => DeleteUser(user))">Delete</Button>
-                        </TableCell>
-                    </TableRow>
-                }
-            }
-        </TableBody>
-    </table>
+            </TableHeader>
+            <TableBody>
+                    @foreach (var user in users)
+                    {
+                        <TableRow>
+                            <TableCell class="px-6 py-4">@user.UserName</TableCell>
+                            <TableCell class="px-6 py-4">@user.Email</TableCell>
+                            <TableCell class="px-6 py-4">@user.PhoneNumber</TableCell>
+                            <TableCell class="px-6 py-4">
+                                <Button OnClick="@(() => EditUser(user))">Edit</Button>
+                                <Button OnClick="@(() => DeleteUser(user))">Delete</Button>
+                            </TableCell>
+                        </TableRow>
+                    }
+            </TableBody>
+        </table>
+    }
 </div>
 
 @code {
     private bool loading = true;
-    private List<User> users = new();
-
+    private List<ApplicationUser>? users;
+    private string? message;
     protected override async Task OnInitializedAsync()
     {
-        // Simulate fetching users from a service
-        await Task.Delay(1000);
-        users = new List<User>
+        try
         {
-            new User { Username = "admin", Email = "admin@example.com", Role = "Admin" },
-            new User { Username = "johndoe", Email = "johndoe@example.com", Role = "User" },
-            new User { Username = "janedoe", Email = "janedoe@example.com", Role = "User" }
-        };
-
-        StateHasChanged();
-
-        loading = false;
+            users = await Http.GetFromJsonAsync<List<ApplicationUser>>("api/users") ?? new List<ApplicationUser>(); 
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            loading = false;
+        }
     }
 
     private void AddUser()
@@ -80,20 +86,13 @@
         // Logic to add a new user
     }
 
-    private void EditUser(User user)
+    private void EditUser(ApplicationUser user)
     {
         // Logic to edit an existing user
     }
 
-    private void DeleteUser(User user)
+    private void DeleteUser(ApplicationUser user)
     {
         // Logic to delete an existing user
-    }
-
-    public class User
-    {
-        public string Username { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
     }
 }

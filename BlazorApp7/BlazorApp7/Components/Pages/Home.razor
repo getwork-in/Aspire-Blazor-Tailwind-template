@@ -10,18 +10,15 @@
 <!-- Welcome Section -->
 <section class="py-10 text-center">
     <h1 class="mb-6 text-5xl font-extrabold">
-        Hello, world
+        Components
     </h1>
-    <div class="border-accent-foreground mx-auto max-w-4xl text-3xl font-bold">
-        Welcome to your new app. How are you feeling today?
-    </div>
 </section>
 
-<!-- Button Demo Section -->
+<!-- Buttons Demo Section -->
 <section class="py-8">
-    <h2 class="text-secondary-foreground mb-6 text-center text-2xl font-semibold">
-        Button Component Demonstration
-    </h2>
+    <Heading2>
+        Buttons
+    </Heading2>
     <div class="flex flex-wrap justify-center gap-4">
         <!-- Default Button (No Variant Specified) -->
         <Button>
@@ -42,6 +39,99 @@
         <Button Variant="ButtonVariant.Link" Size="ButtonSize.Default">
             Link Button
         </Button>
+    </div>
 
+</section>
+
+<!-- Cards Demo Section -->
+<section class ="py-8">
+    <Heading2>
+        Cards
+    </Heading2>
+    <div class="flex flex-wrap justify-center gap-4">
+        <!-- Default Button (No Variant Specified) -->
+        <Card class="mx-auto max-w-xl">
+            <CardHeader>
+                <CardTitle>Welcome</CardTitle>
+                <CardDescription>This is a description.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p class="text-gray-700">
+                    Random card content goes here.
+                </p>
+            </CardContent>
+            <CardFooter>
+                <div class="flex items-center p-6 pt-0">
+                    <Button>Primary Action</Button>
+                    <Button Variant="ButtonVariant.Outline">Secondary Action</Button>
+                </div>
+            </CardFooter>
+        </Card>
+    </div>
+</section>
+
+<!-- Tables Demo Section -->
+<section class="py-8">
+    <Heading2>
+        Tables
+    </Heading2>
+    <div class="flex flex-wrap justify-center gap-4">
+        <!-- Default Button (No Variant Specified) -->
+        <Table class="mx-auto max-w-xl table-auto">
+            <TableCaption>
+                Here's some data
+            </TableCaption>
+            <TableHeader>
+                <TableRow>
+                    <TableHead scope="col" class="px-6 py-3">Header 1</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Header 2</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Header 3</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell class="px-6 py-2.5">Data 1</TableCell>
+                    <TableCell class="px-6 py-2.5">Data 2</TableCell>
+                    <TableCell class="px-6 py-2.5">Data 3</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell class="px-6 py-2.5">Data 4</TableCell>
+                    <TableCell class="px-6 py-2.5">Data 5</TableCell>
+                    <TableCell class="px-6 py-2.5">Data 6</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+    </div>
+</section>
+
+<!-- Loadings Demo Section -->
+<section class ="py-8">
+    <Heading2>
+        Loadings
+    </Heading2>
+    <div class="flex flex-wrap justify-center gap-4">
+        <Loading />
+        <FormLoading Loading="true" />
+    </div>
+</section>
+
+<!-- Alerts Demo Section -->
+<section class ="py-8">
+    <Heading2>
+        Alerts
+    </Heading2>
+    <div class="flex flex-wrap justify-center gap-4">
+        <Alert Type="AlertType.Information">
+            This is an info alert.
+        </Alert>
+        <Alert Type="AlertType.Warning">
+            This is a success alert.
+        </Alert>
+        <Alert Type="AlertType.Error">
+            This is an error alert.
+        </Alert>
+        <Alert Type="AlertType.Success">
+            This is a success alert.
+        </Alert>
     </div>
 </section>

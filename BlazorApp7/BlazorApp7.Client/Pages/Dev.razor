@@ -8,7 +8,23 @@
 <PageTitle>Dev</PageTitle>
 
 <AuthorizeView>
-    <h1 class="text-4xl font-bold">Developers</h1>
-
-    Hello @context.User.Identity?.Name!, you are a developer!
+     <Heading1>Developer Panel</Heading1>
+        <Card class="mx-auto max-w-xl">
+            <CardHeader>
+                <CardTitle>Welcome, @context.User.Identity?.Name!</CardTitle>
+                <CardDescription>You have developer access.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <!-- Developer-specific content goes here -->
+                <p class="text-gray-700">
+                    Use the tools and resources below to manage the application.
+                </p>
+                <!-- Example of nested cards or additional content -->
+            </CardContent>
+            <CardFooter>
+                <!-- Footer actions -->
+                <Button>Primary Action</Button>
+                <Button Variant="ButtonVariant.Outline">Secondary Action</Button>
+            </CardFooter>
+        </Card>
 </AuthorizeView>

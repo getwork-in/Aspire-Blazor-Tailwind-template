@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Authorization
+
+@page "/admin/roles"
+@attribute [Authorize(Roles = "Admin")]
+@rendermode InteractiveAuto
+
+<PageTitle>Roles</PageTitle>
+
+<Breadcrumbs HomeLabel="Home" class="mb-8" HomeHref="/admin">
+    <Breadcrumb>
+        Roles
+    </Breadcrumb>
+</Breadcrumbs>
+
+@code {
+
+}

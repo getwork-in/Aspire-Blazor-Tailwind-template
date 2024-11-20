@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "build:css": "postcss ./styles/app.src.css -o wwwroot/css/app.css",
+        "build:css": "postcss ./styles/app.src.css -o ./wwwroot/css/app.css",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "devDependencies": {

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BlazorApp7.Components\BlazorApp7.Components.csproj" />
+    <ProjectReference Include="..\..\BlazorApp7.Domain\BlazorApp7.Domain.csproj" />
   </ItemGroup>
 	
 </Project>

@@ -1,4 +1,7 @@
 ﻿using BlazorApp7.Data;
+using BlazorApp7.Domain;
+using BlazorApp7.Domain.Entities;
+using BlazorApp7.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 
 namespace BlazorApp7;

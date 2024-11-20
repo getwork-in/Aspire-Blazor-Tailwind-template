@@ -1,4 +1,4 @@
-﻿namespace BlazorApp7;
+﻿namespace BlazorApp7.Domain;
 
 public static class ApplicationRoles
 {

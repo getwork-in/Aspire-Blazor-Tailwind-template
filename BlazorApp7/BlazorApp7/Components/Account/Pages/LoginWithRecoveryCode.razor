@@ -12,7 +12,7 @@
 
 <PageTitle>Recovery code verification</PageTitle>
 
-<div class="mt-8 mx-auto max-w-lg">
+<div class="mx-auto mt-8 max-w-lg">
     <Heading1>Recovery code verification</Heading1>
 
     <StatusMessage Message="@message" />
@@ -20,15 +20,15 @@
         You have requested to log in with a recovery code. This login will not be remembered until you provide
         an authenticator app code at log in or disable 2FA and log in again.
     </p>
-    <div class="mt-3 shadow overflow-hidden sm:rounded-md">
-        <div class="px-4 bg-white dark:bg-black sm:p-6">
+    <div class="mt-3 overflow-hidden shadow sm:rounded-md">
+        <div class="bg-white px-4 dark:bg-black sm:p-6">
             <EditForm Model="Input" FormName="login-with-recovery-code" OnValidSubmit="OnValidSubmitAsync" method="post">
                 <DataAnnotationsValidator />
-                <ValidationSummary class="mb-3 text-danger text-center font-semibold" />
+                <ValidationSummary class="mb-3 text-center font-semibold text-danger" />
                 <div class="flex flex-col gap-y-4">
                     <div>
                         <label for="recovery-code" class="@TextInput.LabelClasses">Recovery Code</label>
-                        <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="relative mt-1 rounded-md shadow-sm">
                             <InputText id="recovery-code" type="text" @bind-Value="Input.RecoveryCode" class="@TextInput.InputClasses" autocomplete="off" placeholder="RecoveryCode" />
                         </div>
                         <ValidationMessage For="() => Input.RecoveryCode" class="mt-2 text-danger text-sm" />

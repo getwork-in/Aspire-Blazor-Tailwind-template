@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace BlazorApp7.Components.Tailwind;
 
@@ -14,10 +13,6 @@ public partial class Loading : UiComponentBase
 	[Parameter] public string Message { get; set; } = "Loading...";
 	[Inject] NavigationManager NavigationManager { get; set; } = default!;
 
-	string prerenderedHtml { get; set; } = "";
-
-	bool HasPrerenderedHtml => !string.IsNullOrEmpty(prerenderedHtml);
-
 	[Parameter]
 	public string ImageClass { get; set; } = "w-6 h-6";
 
@@ -27,13 +22,7 @@ public partial class Loading : UiComponentBase
 
 		if (firstRender)
 		{
-			var html = await JS.InvokeAsync<string>("JS.prerenderedPage") ?? "";
-			var currentPath = new Uri(NavigationManager.Uri).AbsolutePath;
-			var prerenderedContentIsForPath = html.Contains($"data-prerender=\"{currentPath}\"", StringComparison.CurrentCulture);
-			if (prerenderedContentIsForPath)
-			{
-				prerenderedHtml = html;
-			}
+
 		}
 	}
 }

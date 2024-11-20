@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using BlazorApp7.Data;
+using BlazorApp7.Domain.Entities;
 
 namespace BlazorApp7.Components.Account;
 

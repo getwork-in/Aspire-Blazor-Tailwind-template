@@ -1,4 +1,4 @@
-﻿namespace BlazorApp7.GMS.Entities.InSession;
+﻿namespace BlazorApp7.Domain.Entities.InSession;
 
 public class League
 {

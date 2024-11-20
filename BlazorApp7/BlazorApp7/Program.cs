@@ -2,6 +2,8 @@ using BlazorApp7;
 using BlazorApp7.Components;
 using BlazorApp7.Components.Account;
 using BlazorApp7.Data;
+using BlazorApp7.Domain.Entities;
+using BlazorApp7.Infrastructure.Data;
 using BlazorApp7.ServiceDefaults;
 
 using Microsoft.AspNetCore.Components.Authorization;

@@ -1,6 +1,6 @@
-﻿namespace BlazorApp7.GMS.Entities;
+﻿namespace BlazorApp7.Domain.Entities;
 
-public class UserSession
+public class ApplicationUserSession
 {
 	public Guid Id { get; set; } = Guid.NewGuid();
 	public required string UserId { get; set; }

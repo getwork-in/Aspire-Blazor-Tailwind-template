@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace BlazorApp7.GMS;
+namespace BlazorApp7.Domain;
 
 public static class DependencyInjection
 {

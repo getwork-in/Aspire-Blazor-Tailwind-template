@@ -1,137 +1,46 @@
-﻿@using BlazorApp7.Data
-@using BlazorApp7.GMS.Entities
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.EntityFrameworkCore
-
-@page "/"
+﻿@page "/"
 
 <PageTitle>Home</PageTitle>
 
-<!-- Welcome Section -->
-<section class="py-10 text-center">
-    <h1 class="mb-6 text-5xl font-extrabold">
-        Components
-    </h1>
-</section>
+<!-- Hero Section -->
+<section class="flex min-h-screen items-center justify-center">
+    <div class="w-full px-4 text-center">
+        <!-- Logo or Icon -->
+        <img class="mx-auto h-20 w-auto" src="/img/blazor.svg" alt="Blazor MyApp">
 
-<!-- Buttons Demo Section -->
-<section class="py-8">
-    <Heading2>
-        Buttons
-    </Heading2>
-    <div class="flex flex-wrap justify-center gap-4">
-        <!-- Default Button (No Variant Specified) -->
-        <Button>
-            Default Button
-        </Button>
+        <h1 class="mb-6 text-5xl font-bold">Coming Soon</h1>
 
-        <!-- Small Destructive Button -->
-        <Button Variant="ButtonVariant.Destructive" Size="ButtonSize.Small" OnClick="@(() => Console.WriteLine("Clicked Destructive"))">
-            Small Destructive Button
-        </Button>
-
-        <!-- Large Outline Button -->
-        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Large">
-            Large Outline Button
-        </Button>
-
-        <!-- Link Button -->
-        <Button Variant="ButtonVariant.Link" Size="ButtonSize.Default">
-            Link Button
-        </Button>
-    </div>
-
-</section>
-
-<!-- Cards Demo Section -->
-<section class ="py-8">
-    <Heading2>
-        Cards
-    </Heading2>
-    <div class="flex flex-wrap justify-center gap-4">
-        <!-- Default Button (No Variant Specified) -->
-        <Card class="mx-auto max-w-xl">
-            <CardHeader>
-                <CardTitle>Welcome</CardTitle>
-                <CardDescription>This is a description.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <p class="text-gray-700">
-                    Random card content goes here.
+        <AuthorizeView>
+            <Authorized>
+                <p class="text-lg text-gray-600">
+                    Welcome back, @context.User.GetDisplayName()
                 </p>
-            </CardContent>
-            <CardFooter>
-                <div class="flex items-center p-6 pt-0">
-                    <Button>Primary Action</Button>
-                    <Button Variant="ButtonVariant.Outline">Secondary Action</Button>
+            </Authorized>
+            <NotAuthorized>
+                <!-- Centering the FormLoading component -->
+                <div class="mt-6 flex items-center justify-center">
+                    <FormLoading Loading />
                 </div>
-            </CardFooter>
-        </Card>
+            </NotAuthorized>
+        </AuthorizeView>
     </div>
 </section>
 
-<!-- Tables Demo Section -->
+<!-- Call to Action Section -->
 <section class="py-8">
-    <Heading2>
-        Tables
-    </Heading2>
-    <div class="flex flex-wrap justify-center gap-4">
-        <!-- Default Button (No Variant Specified) -->
-        <Table class="mx-auto max-w-xl table-auto">
-            <TableCaption>
-                Here's some data
-            </TableCaption>
-            <TableHeader>
-                <TableRow>
-                    <TableHead scope="col" class="px-6 py-3">Header 1</TableHead>
-                    <TableHead scope="col" class="px-6 py-3">Header 2</TableHead>
-                    <TableHead scope="col" class="px-6 py-3">Header 3</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                <TableRow>
-                    <TableCell class="px-6 py-2.5">Data 1</TableCell>
-                    <TableCell class="px-6 py-2.5">Data 2</TableCell>
-                    <TableCell class="px-6 py-2.5">Data 3</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell class="px-6 py-2.5">Data 4</TableCell>
-                    <TableCell class="px-6 py-2.5">Data 5</TableCell>
-                    <TableCell class="px-6 py-2.5">Data 6</TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
-    </div>
 </section>
 
-<!-- Loadings Demo Section -->
-<section class ="py-8">
-    <Heading2>
-        Loadings
-    </Heading2>
-    <div class="flex flex-wrap justify-center gap-4">
-        <Loading />
-        <FormLoading Loading="true" />
-    </div>
-</section>
+@code {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
 
-<!-- Alerts Demo Section -->
-<section class ="py-8">
-    <Heading2>
-        Alerts
-    </Heading2>
-    <div class="flex flex-wrap justify-center gap-4">
-        <Alert Type="AlertType.Information">
-            This is an info alert.
-        </Alert>
-        <Alert Type="AlertType.Warning">
-            This is a success alert.
-        </Alert>
-        <Alert Type="AlertType.Error">
-            This is an error alert.
-        </Alert>
-        <Alert Type="AlertType.Success">
-            This is a success alert.
-        </Alert>
-    </div>
-</section>
+    private void RequestAccess()
+    {
+        NavigationManager.NavigateTo("/Account/Login");
+    }
+
+    private void Subscribe()
+    {
+        // Handle email subscription logic here
+    }
+}

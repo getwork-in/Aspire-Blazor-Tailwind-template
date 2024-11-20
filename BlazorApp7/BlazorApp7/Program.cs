@@ -2,7 +2,6 @@ using BlazorApp7;
 using BlazorApp7.Components;
 using BlazorApp7.Components.Account;
 using BlazorApp7.Data;
-using BlazorApp7.GMS;
 using BlazorApp7.ServiceDefaults;
 
 using Microsoft.AspNetCore.Components.Authorization;
@@ -45,10 +44,6 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 	.AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
-//builder.Services.AddFluentUIComponents();
-builder.Services.AddScoped<ILocalStorage, LocalStorage>();
-builder.Services.AddGMS();
 
 var app = builder.Build();
 

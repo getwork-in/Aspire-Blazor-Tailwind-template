@@ -1,4 +1,4 @@
-using BlazorApp7.GMS.BuildingBlocks;
+using BlazorApp7.Domain.BuildingBlocks;
 using BlazorApp7.GMS.Entities;
 using Microsoft.AspNetCore.Identity;
 

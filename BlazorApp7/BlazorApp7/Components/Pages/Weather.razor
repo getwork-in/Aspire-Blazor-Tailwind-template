@@ -9,10 +9,10 @@
 
     <p class="my-4">This component demonstrates showing data.</p>
 
-    <FormLoading Loading="forecasts is null" />
     @if (forecasts is null)
     {
-        <Loading />
+        <FormLoading Loading="true" />
+@*         <Loading /> *@
     }
     else
     {

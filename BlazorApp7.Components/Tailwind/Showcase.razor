@@ -1,0 +1,162 @@
+﻿<!-- Welcome Section -->
+<section class="py-12 text-center">
+    <h1 class="mb-4 text-5xl font-extrabold text-gray-700">
+        Component Showcase
+    </h1>
+    <p class="text-lg text-gray-600">
+        Explore the various UI components available in our application.
+    </p>
+</section>
+
+<!-- Buttons Demo Section -->
+<section class="py-12">
+    <Card class="mx-auto max-w-6xl">
+        <CardHeader>
+            <CardTitle Class="text-gray-500">Buttons</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <div class="flex flex-wrap justify-center gap-4">
+                <!-- Default Button -->
+                <Button>
+                    Default Button
+                </Button>
+
+                <!-- Small Destructive Button -->
+                <Button Variant="ButtonVariant.Destructive" Size="ButtonSize.Small" OnClick="@(() => Console.WriteLine("Clicked Destructive"))">
+                    Small Destructive Button
+                </Button>
+
+                <!-- Large Outline Button -->
+                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Large">
+                    Large Outline Button
+                </Button>
+
+                <!-- Link Button -->
+                <Button Variant="ButtonVariant.Link">
+                    Link Button
+                </Button>
+            </div>
+        </CardContent>
+    </Card>
+</section>
+
+<!-- Cards Demo Section -->
+<section class="py-12">
+    <Card class="mx-auto max-w-6xl">
+        <CardHeader>
+            <CardTitle Class="text-gray-500">Cards</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <div class="grid-cols-1 grid gap-6 md:grid-cols-2">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Card Title 1</CardTitle>
+                        <CardDescription>Subtitle or description.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p class="text-gray-700">
+                            This is some content inside the card. You can place any content here, such as text, images, or other components.
+                        </p>
+                    </CardContent>
+                    <CardFooter>
+                        <Button>Learn More</Button>
+                    </CardFooter>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Card Title 2</CardTitle>
+                        <CardDescription>Another subtitle here.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p class="text-gray-700">
+                            Additional content can be placed in this card. Cards are great for organizing information.
+                        </p>
+                    </CardContent>
+                    <CardFooter>
+                        <Button Variant="ButtonVariant.Outline">Get Started</Button>
+                    </CardFooter>
+                </Card>
+            </div>
+        </CardContent>
+    </Card>
+</section>
+
+<!-- Tables Demo Section -->
+<section class="py-12">
+    <Card class="mx-auto max-w-6xl">
+        <CardHeader>
+            <CardTitle Class="text-gray-500">Tables</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <Table class="w-full table-auto">
+                <TableCaption>
+                    Here's some data
+                </TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead class="px-6 py-3">Name</TableHead>
+                        <TableHead class="px-6 py-3">Email</TableHead>
+                        <TableHead class="px-6 py-3">Role</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell class="px-6 py-4">Alice Johnson</TableCell>
+                        <TableCell class="px-6 py-4">alice@example.com</TableCell>
+                        <TableCell class="px-6 py-4">Administrator</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell class="px-6 py-4">Bob Smith</TableCell>
+                        <TableCell class="px-6 py-4">bob@example.com</TableCell>
+                        <TableCell class="px-6 py-4">User</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell class="px-6 py-4">Carol Davis</TableCell>
+                        <TableCell class="px-6 py-4">carol@example.com</TableCell>
+                        <TableCell class="px-6 py-4">Moderator</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </CardContent>
+    </Card>
+</section>
+
+<!-- Loading Indicators Demo Section -->
+<section class="py-12">
+    <Card class="mx-auto max-w-6xl">
+        <CardHeader>
+            <CardTitle Class="text-gray-500">Loading Indicators</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <div class="flex flex-wrap justify-center gap-8">
+                <Loading />
+                <FormLoading Loading="true" />
+            </div>
+        </CardContent>
+    </Card>
+</section>
+
+<!-- Alerts Demo Section -->
+<section class="py-12">
+    <Card class="mx-auto max-w-6xl">
+        <CardHeader>
+            <CardTitle Class="text-gray-500">Alerts</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <div class="space-y-4">
+                <Alert Type="AlertType.Information">
+                    This is an informational alert.
+                </Alert>
+                <Alert Type="AlertType.Warning">
+                    This is a warning alert.
+                </Alert>
+                <Alert Type="AlertType.Error">
+                    This is an error alert.
+                </Alert>
+                <Alert Type="AlertType.Success">
+                    This is a success alert.
+                </Alert>
+            </div>
+        </CardContent>
+    </Card>
+</section>

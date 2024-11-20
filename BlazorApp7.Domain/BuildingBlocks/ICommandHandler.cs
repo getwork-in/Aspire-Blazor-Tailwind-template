@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace BlazorApp7.GMS.BuildingBlocks;
+namespace BlazorApp7.Domain.BuildingBlocks;
 
 public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand>
 	where TCommand : ICommand

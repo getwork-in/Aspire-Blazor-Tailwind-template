@@ -1,7 +1,7 @@
 ﻿using BlazorApp7.GMS.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazorApp7.GMS.Data;
+namespace BlazorApp7.Domain.Data;
 
 public class AppContext : DbContext
 {

@@ -1,4 +1,4 @@
-﻿namespace BlazorApp7.GMS.BuildingBlocks;
+﻿namespace BlazorApp7.Domain.BuildingBlocks;
 
 public interface IUser
 {

@@ -21,4 +21,19 @@ public class UsersController(
 	{
 		return Ok(await _context.Users.AsNoTracking().ToListAsync(cancellationToken));
 	}
+
+	[HttpDelete("{id}")]
+	public async Task<ActionResult> Delete(string id, CancellationToken cancellationToken)
+	{
+		var user = await _context.Users.FindAsync(new object[] { id }, cancellationToken);
+
+		if (user is null)
+		{
+			return NotFound();
+		}
+
+		var result = await _userManager.DeleteAsync(user);
+
+		return result.Succeeded ? NoContent() : StatusCode(500, result.Errors);
+	}
 }

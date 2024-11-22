@@ -1,2 +1,2 @@
-# BlazorApp7
+# BlazorApp
  Blazor Tailwind .NET 9

@@ -1,0 +1,122 @@
+﻿@page "/admin/users"
+@* @rendermode @(new InteractiveAutoRenderMode(false)) *@
+@rendermode InteractiveAuto
+@inject HttpClient Http
+
+<PageTitle>Users</PageTitle>
+
+<Breadcrumbs HomeLabel="Home" HomeHref="/admin">
+    <Breadcrumb>
+        <Heading4 class="text-gray-600">Users</Heading4>
+    </Breadcrumb>
+</Breadcrumbs>
+
+<div class="mx-auto mb-20 mt-8 max-w-screen-2xl overflow-x-auto">
+    @if (loading || RendererInfo.Name != "WebAssembly")
+    {
+        <div class="flex h-32 items-center justify-center">
+            <Loading />
+        </div>
+    }
+    else if (!string.IsNullOrWhiteSpace(message))
+    {
+        <Alert Type="AlertType.Error">@message</Alert>
+    }
+    else
+    {
+        <div class="my-4">
+            <Button OnClick="AddUser" class="flex items-center gap-2">
+                <span>Add New User</span>
+            </Button>
+        </div>
+
+        <Table class="w-full table-auto border border-gray-200 dark:border-gray-700">
+            <TableHeader>
+                <TableRow class="bg-gray-100 text-xs uppercase dark:bg-gray-800">
+                    <TableHead scope="col" class="px-6 py-3">Username</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Email</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Email confirmed</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Phone</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Phone confirmed</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Two-factor enabled</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Lockout end</TableHead>
+                    <TableHead scope="col" class="px-6 py-3">Lockout enabled</TableHead>
+                    <TableHead scope="col" class="px-6 py-3"></TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                @foreach (var user in users!)
+                {
+                    <TableRow class="text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <TableCell class="px-6 py-2">@user.UserName</TableCell>
+                        <TableCell class="px-6 py-2">@user.Email</TableCell>
+                        <TableCell class="px-6 py-2">@YesNo(user.EmailConfirmed)</TableCell>
+                        <TableCell class="px-6 py-2">@user.PhoneNumber</TableCell>
+                        <TableCell class="px-6 py-2">@YesNo(user.PhoneNumberConfirmed)</TableCell>
+                        <TableCell class="px-6 py-2">@YesNo(user.TwoFactorEnabled)</TableCell>
+                        <TableCell class="px-6 py-2">@user.LockoutEnd</TableCell>
+                        <TableCell class="px-6 py-2">@YesNo(user.LockoutEnabled)</TableCell>
+                        <TableCell class="px-4 py-2 text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <Button Variant="ButtonVariant.Outline"
+                                        Size="ButtonSize.Small"
+                                        OnClick="@(() => EditUser(user))"
+                                        class="p-1"
+                                        title="Edit">
+                                    <span>Edit</span>
+                                </Button>
+                                <Button Variant="ButtonVariant.Destructive"
+                                        Size="ButtonSize.Small"
+                                        OnClick="@(() => DeleteUser(user))"
+                                        title="Delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </Button>
+                            </div>
+                        </TableCell>
+                    </TableRow>
+                }
+            </TableBody>
+        </Table>
+    }
+</div>
+
+@code {
+    private static string YesNo(bool value) => value ? "Yes" : "No";
+    private bool loading = true;
+    private List<ApplicationUser>? users;
+    private string? message;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            //await Task.Delay(2000);
+            users = await Http.GetFromJsonAsync<List<ApplicationUser>>("api/users") ?? new List<ApplicationUser>(); 
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private void AddUser()
+    {
+        // Logic to add a new user
+    }
+
+    private void EditUser(ApplicationUser user)
+    {
+        // Logic to edit an existing user
+    }
+
+    private void DeleteUser(ApplicationUser user)
+    {
+        // Logic to delete an existing user
+    }
+}

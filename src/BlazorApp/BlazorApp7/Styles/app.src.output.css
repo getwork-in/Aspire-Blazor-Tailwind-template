@@ -1716,11 +1716,6 @@ h1:focus {
   color: rgb(161 98 7 / var(--tw-text-opacity, 1));
 }
 
-.text-yellow-950 {
-  --tw-text-opacity: 1;
-  color: rgb(66 32 6 / var(--tw-text-opacity, 1));
-}
-
 .underline-offset-4 {
   text-underline-offset: 4px;
 }

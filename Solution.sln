@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp7.ServiceDefaults"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlazorApp", "BlazorApp", "{08A80FFC-4F9A-49A3-B3E3-4A063886668A}"
 	ProjectSection(SolutionItems) = preProject
-		src\BlazorApp7\Directory.Build.props = src\BlazorApp7\Directory.Build.props
+		src\BlazorApp\Directory.Build.props = src\BlazorApp\Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp7.Domain", "src\BlazorApp\BlazorApp7.Domain\BlazorApp7.Domain.csproj", "{473A5CEB-A2EA-4BD3-BD63-C66ED5F5A636}"

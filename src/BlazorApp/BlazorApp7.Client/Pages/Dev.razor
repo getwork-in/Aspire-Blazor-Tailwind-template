@@ -1,8 +1,9 @@
 ﻿@page "/dev"
 
+@using BlazorApp7.Domain.Common
 @using Microsoft.AspNetCore.Authorization
 
-@attribute [Authorize(Roles = ApplicationRoles.Developer)]
+@attribute 	[Authorize(Roles = ApplicationRoles.Developer)]
 @rendermode InteractiveAuto
 
 <PageTitle>Dev</PageTitle>

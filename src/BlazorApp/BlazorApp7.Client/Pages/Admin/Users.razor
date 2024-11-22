@@ -1,4 +1,5 @@
 ﻿@page "/admin/users"
+@using BlazorApp7.Domain.DTOs
 @* @rendermode @(new InteractiveAutoRenderMode(false)) *@
 @rendermode InteractiveAuto
 @inject HttpClient Http
@@ -12,7 +13,7 @@
 </Breadcrumbs>
 
 <div class="mx-auto mb-20 mt-8 max-w-screen-2xl overflow-x-auto">
-    @if (loading || RendererInfo.Name != "WebAssembly")
+    @if (loading)
     {
         <div class="flex h-32 items-center justify-center">
             <Loading />
@@ -85,14 +86,14 @@
 @code {
     private static string YesNo(bool value) => value ? "Yes" : "No";
     private bool loading = true;
-    private List<ApplicationUser>? users;
+    private List<AppUserDTO>? users;
     private string? message;
     protected override async Task OnInitializedAsync()
     {
         try
         {
             //await Task.Delay(2000);
-            users = await Http.GetFromJsonAsync<List<ApplicationUser>>("api/users") ?? new List<ApplicationUser>(); 
+            users = await Http.GetFromJsonAsync<List<AppUserDTO>>("api/users") ?? new List<AppUserDTO>();
         }
         catch (Exception ex)
         {
@@ -110,12 +111,12 @@
         // Logic to add a new user
     }
 
-    private void EditUser(ApplicationUser user)
+    private void EditUser(AppUserDTO user)
     {
         // Logic to edit an existing user
     }
 
-    private void DeleteUser(ApplicationUser user)
+    private void DeleteUser(AppUserDTO user)
     {
         // Logic to delete an existing user
     }

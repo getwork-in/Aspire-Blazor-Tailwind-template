@@ -1,4 +1,5 @@
-﻿using BlazorApp7.Domain;
+﻿using BlazorApp7.Domain.Common;
+using BlazorApp7.Domain.DTOs;
 using BlazorApp7.Domain.Entities;
 using BlazorApp7.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -17,9 +18,9 @@ public class UsersController(
 	UserManager<ApplicationUser> _userManager) : ApiControllerBase
 {
 	[HttpGet]
-	public async Task<ActionResult<IEnumerable<ApplicationUser>>> Get(CancellationToken cancellationToken)
+	public async Task<ActionResult<IEnumerable<AppUserDTO>>> Get(CancellationToken cancellationToken)
 	{
-		return Ok(await _context.Users.AsNoTracking().ToListAsync(cancellationToken));
+		return Ok(await _context.Users.AsNoTracking().Select(e => e.AsDto()).ToListAsync(cancellationToken));
 	}
 
 	[HttpDelete("{id}")]
